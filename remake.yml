@@ -1,0 +1,110 @@
+packages:
+  - rotl
+  - ape
+  - rfishbase
+  - brms
+  - parallel
+  - Hmisc
+  - LoLinR
+  - extrafont
+  - fontcm
+  - noaaErddap
+  - ncdf4
+  - plyr
+  - zoo
+  - tools
+  - raster
+  - envPred
+  - knitr
+  - rmarkdown
+
+sources:
+  - R/analyses.R
+  - R/figures.R
+  - R/tables.R
+
+targets:
+  all:
+    depends:
+      - noaaErddapLayersExist
+      - output/tables/table1.csv
+      - output/tables/table2.csv
+      - output/tables/tableS1.csv
+      - output/figures/fig1.pdf
+      - output/figures/fig2.pdf
+      - output/figures/fig3.pdf
+
+  # data crunching
+  noaaErddapLayersExist:
+    command: checkIfNoaaErddapLayersExist()
+
+  # phylogenetic Actinopterygii tree
+  # downloaded on 01 / Dec / 2017
+  tree:
+    command: downloadAndProcessTree()
+
+  otlSubs:
+    command: readFile('data/otlSppSubstitutions.csv')
+
+  spawningModeTab:
+    command: readFile('data/spawningMode.csv')
+
+  phyloTreeAndData:
+    command: cleanAndExtractPhyloTreeAndMatchedData(tree = tree, otlSubs = otlSubs, filePath = 'data/fishEggsMSData.csv')
+
+  coordinates:
+    command: makeCoordinatesTable(phyloTreeAndData)
+
+  chlTable:
+    command: matchNcdfDataFrameStyle(I('chlorophyll'), coordinates)
+
+  sstTable:
+    command: matchNcdfDataFrameStyle(I('sst'), coordinates)
+
+  predictabilityTable:
+    command: makeEnvironmentalPredictabilityTable(chlTable, sstTable)
+
+  abioticData:
+    command: produceAbioticData(chlTable, sstTable, predictabilityTable)
+
+  filteredData:
+    command: filterDataForAnalysis(phyloTreeAndData, abioticData)
+
+  # data analysis  
+  allModels:
+    command: runAllModels(filteredData)
+
+  spawningCheckModel:
+    command: runSpawningCheckModel(filteredData, spawningModeTab)
+
+  comparisonTab:
+    command: looComparison(allModels)
+
+  # tables
+  table1:
+    command: makeTable1(filteredData)
+
+  output/tables/table1.csv:
+    command: writeTable1(dest = target_name, table1)
+
+  table2:
+    command: makeTable2(allModels)
+
+  output/tables/table2.csv:
+    command: writeTable2(dest = target_name, table2)
+
+  tableS1:
+    command: makeTableS1(spawningCheckModel)
+
+  output/tables/tableS1.csv:
+    command: writeTableS1(dest = target_name, tableS1)
+
+  # figures
+  output/figures/fig1.pdf:
+    command: makeFig1(dest = target_name, data = filteredData)
+
+  output/figures/fig2.pdf:
+    command: makeFig2(dest = target_name, filteredData = filteredData, allModels = allModels)
+
+  output/figures/fig3.pdf:
+    command: makeFig3(dest = target_name, filteredData = filteredData, allModels = allModels)

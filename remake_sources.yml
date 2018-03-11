@@ -1,0 +1,11 @@
+LoLinR:
+  source: github
+  repo: colin-olito/LoLinR
+
+noaaErddap:
+  source: github
+  repo: dbarneche/noaaErddap
+
+envPred:
+  source: github
+  repo: dbarneche/envPred
