@@ -4,6 +4,8 @@ This repository contains code and data needed to reproduce the article:
 
 **Barneche DR, Burgess SC, Marshall DJ** (in press) Global environmental drivers of marine fish egg size. *Global Ecology and Biogeography*. doi: 10.1111/geb.12748
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1204618.svg)](https://doi.org/10.5281/zenodo.1204618)
+
 ## Instructions
 
 All analyses were done in `R`. To compile the paper, including figures and tables we use the [remake](https://github.com/richfitz/remake) package for R. You can install remake using the `devtools` package:
