@@ -2,20 +2,20 @@
 
 This repository contains code and data needed to reproduce the article:
 
-**Barneche DR, Burgess SC, Marshall DJ** (in press) Global environmental drivers of marine fish egg size. *Global Ecology and Biogeography*. doi: 
+**Barneche DR, Burgess SC, Marshall DJ** (in press) Global environmental drivers of marine fish egg size. *Global Ecology and Biogeography*. doi: 10.1111/geb.12748
 
 ## Instructions
 
 All analyses were done in `R`. To compile the paper, including figures and tables we use the [remake](https://github.com/richfitz/remake) package for R. You can install remake using the `devtools` package:
 
 ```r
-devtools::install_github('richfitz/remake', dependencies=TRUE)
+devtools::install_github('richfitz/remake', dependencies = TRUE)
 ```
 (run `install.packages('devtools')` to install devtools if needed.)
 
 The `remake` package also depends on `storr`, install it like this:
 ```r
-devtools::install_github('richfitz/storr', dependencies=TRUE)
+devtools::install_github('richfitz/storr', dependencies = TRUE)
 ```
 
 Next you need to open an R session with working directory set to the root of the project.
