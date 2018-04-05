@@ -2,7 +2,7 @@
 
 This repository contains code and data needed to reproduce the article:
 
-**Barneche DR, Burgess SC, Marshall DJ** (in press) Global environmental drivers of marine fish egg size. *Global Ecology and Biogeography*. doi: 10.1111/geb.12748
+**Barneche DR, Burgess SC, Marshall DJ** Global environmental drivers of marine fish egg size. *Global Ecology and Biogeography*. doi: 10.1111/geb.12748
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1204618.svg)](https://doi.org/10.5281/zenodo.1204618)
 
@@ -34,7 +34,7 @@ And then install the package `fontcm`, via `extrafont`. This installs the font `
 extrafont::font_install('fontcm')
 ```
 
-Then, to generate all figures, analyses, and manuscript (using the package `knitr`), simply do:
+Then, to generate all figures, analyses, and tables, simply run:
 
 ```r
 remake::make()
